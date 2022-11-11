@@ -1,0 +1,9 @@
+
+.all-cards-section{
+    flex-wrap: wrap;
+}
+
+.cards-list{
+    list-style-type: none;
+    width: 100vw;
+}

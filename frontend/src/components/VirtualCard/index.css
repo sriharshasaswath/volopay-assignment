@@ -1,0 +1,123 @@
+
+.card-item{
+    display: inline-block;
+    width: 450px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 20px;
+    margin-right: 140px;
+    list-style-position:inside;
+}
+
+.card-container{
+    display: flex;
+    justify-content: space-between;
+    width: 450px;
+}
+
+.line{
+    width: 420px;
+    height: 5px;
+    background-color: green;
+    margin-left: 15px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.spent-container{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.availableToSpend-container{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.red-dot{
+    color: red;
+    margin-top: 5px;
+}
+
+.green-dot{
+    color: green;
+    margin-top: 7px;
+}
+
+.sub-spent{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.name{
+    font-weight: 900;
+    font-size: 20px;
+    margin-bottom: 0;
+    width: fit-content;
+    margin-left: 10px;
+}
+
+.budgetName{
+    margin-top: 0;
+    margin-bottom: 0;
+    width: fit-content;
+    margin-left: 10px;
+}
+
+.cardType{
+    width: fit-content;
+    border: solid 1px black;
+    border-radius: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.fire{
+    color: red;
+    background-color: #fbdde1;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    padding: 5px;
+    margin-top: 17px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.arrow{
+    color: red;
+    background-color: #fbdde1;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    padding: 5px;
+    margin-top: 17px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.icon-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.expires{
+    margin-right: 10px;
+}
+
+.spent{
+    margin: 4px;
+}
+.s{
+    margin-bottom: 15px;
+}
