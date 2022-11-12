@@ -17,13 +17,21 @@
     width: 450px;
 }
 
-.line{
-    width: 420px;
+.line1{
+    width: 120px;
     height: 5px;
     background-color: green;
     margin-left: 15px;
-    margin-right: 10px;
-    border-radius: 5px;
+}
+
+.line2{
+    width: 20px;
+    height: 5px;
+    background-color: red;
+}
+
+.line-container{
+    display: flex;
 }
 
 .spent-container{

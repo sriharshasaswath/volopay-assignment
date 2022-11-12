@@ -34,7 +34,22 @@ const VirtualCard = (props) => {
           <p className="expires">Expires: {expiry}</p>
         </div>
       </div>
-      <div className="line"></div>
+      <div className="line-container">
+        <div
+          style={{
+            backgroundColor: "red",
+            width: `${spent.value / 2.23}px`,
+            height: "5px",
+          }}
+        ></div>
+        <div
+          style={{
+            backgroundColor: "green",
+            width: `${availableToSpend.value / 2.23}px`,
+            height: "5px",
+          }}
+        ></div>
+      </div>
       <div className="spent-container">
         <div className="sub-spent">
           <GoPrimitiveDot className="red-dot" />

@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import VirtualCard from "../VirtualCard";
 import FilterNav from "../FilterNav";
 import { AiFillWarning } from "react-icons/ai";
@@ -26,20 +26,41 @@ const sortbyOptions = [
   },
 ];
 
-class Home extends Component {
-  state = {
-    cardsList: [],
-    activeCategoryId: "0",
-    searchInput: "",
-    activeOptionId: sortbyOptions[0].optionId,
-  };
+function Home() {
+  const rows = 10;
+  const [cardsList, setcardsList] = useState([]);
+  const [activeCategoryId, setactiveCategoryId] = useState("0");
+  const [searchInput, setsearchInput] = useState("");
+  const [activeOptionId, setactiveOptionId] = useState(
+    sortbyOptions[0].optionId
+  );
+  const [post, setPost] = useState([]);
+  const [page, setPage] = useState(1);
 
-  componentDidMount() {
-    this.getCardsList();
-  }
+  useEffect(() => {
+    getCardsList();
+  }, []);
 
-  getCardsList = async () => {
-    const { activeCategoryId, searchInput, activeOptionId } = this.state;
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >=
+        document.documentElement.scrollHeight
+      ) {
+        setPage((prev) => prev + 1);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log(page * rows - rows);
+    console.log(page * rows);
+    setPost([...cardsList.slice(0, page * rows)]);
+    console.log(post);
+  }, [page]);
+
+  const getCardsList = async () => {
+    // const { activeCategoryId, searchInput, activeOptionId } = this.state;
     console.log(activeCategoryId);
     const apiUrl =
       searchInput.length === 0
@@ -68,76 +89,85 @@ class Home extends Component {
         status: each.status,
       }));
       console.log(updatedData);
-      this.setState({
-        cardsList: updatedData,
-      });
+      setcardsList(updatedData);
+      setPost([...updatedData.slice(0, 10)]);
+      console.log(post);
     } else {
       console.log("error");
     }
   };
 
-  enterSearchInput = () => {
-    this.getCardsList();
+  // handlescroll = () => {
+  //   if (
+  //     window.innerHeight + document.documentElement.scrollTop + 1 >=
+  //     document.documentElement.scrollHeight
+  //   ) {
+  //     this.setState((prevState) => ({
+  //       page: prevState + 1,
+  //     }));
+  //   }
+  // };
+
+  const enterSearchInput = () => {
+    getCardsList();
   };
 
-  changeSearchInput = (searchInput) => {
-    this.setState({ searchInput });
+  const changeSearchInput = (searchInput) => {
+    setsearchInput(searchInput);
+    // this.setState({ searchInput });
   };
 
-  changeCategory = (activeCategoryId) => {
-    this.setState({ activeCategoryId }, this.getCardsList);
+  const changeCategory = (activeCategoryId) => {
+    setactiveCategoryId(activeCategoryId);
+    getCardsList();
+    // this.setState({ activeCategoryId }, this.getCardsList);
   };
 
-  changeSortby = (activeOptionId) => {
-    this.setState({ activeOptionId }, this.getCardsList);
+  const changeSortby = (activeOptionId) => {
+    setactiveOptionId(activeOptionId);
+    getCardsList();
+    // this.setState({ activeOptionId }, this.getCardsList);
   };
 
-  clearFilters = () => {
-    this.setState(
-      {
-        searchInput: "",
-        activeCategoryId: "0",
-      },
-      this.getCardsList
-    );
+  const clearFilters = () => {
+    setsearchInput("");
+    setactiveCategoryId("0");
+    getCardsList();
   };
+  console.log(post);
 
-  render() {
-    const { cardsList, searchInput, activeCategoryId, activeOptionId } =
-      this.state;
-    return (
-      <div className="all-cards-section">
-        <FilterNav
-          searchInput={searchInput}
-          changeSearchInput={this.changeSearchInput}
-          enterSearchInput={this.enterSearchInput}
-          categoryOptions={categoryOptions}
-          changeCategory={this.changeCategory}
-          activeCategoryId={activeCategoryId}
-          activeOptionId={activeOptionId}
-          sortbyOptions={sortbyOptions}
-          changeSortby={this.changeSortby}
-          clearFilters={this.clearFilters}
-        />
-        <ul className="cards-list">
-          {cardsList.length === 0 ? (
-            <div>
-              <p>No Virtual Cards Found</p>
-              <div className="warning-container">
-                <AiFillWarning className="warning" />
-                <p>
-                  Try with <strong>CASE SENSITIVE</strong>
-                </p>
-              </div>
+  return (
+    <div className="all-cards-section">
+      <FilterNav
+        searchInput={searchInput}
+        changeSearchInput={changeSearchInput}
+        enterSearchInput={enterSearchInput}
+        categoryOptions={categoryOptions}
+        changeCategory={changeCategory}
+        activeCategoryId={activeCategoryId}
+        activeOptionId={activeOptionId}
+        sortbyOptions={sortbyOptions}
+        changeSortby={changeSortby}
+        clearFilters={clearFilters}
+      />
+      <ul className="cards-list">
+        {cardsList.length === 0 ? (
+          <div>
+            <p>No Virtual Cards Found</p>
+            <div className="warning-container">
+              <AiFillWarning className="warning" />
+              <p>
+                Try with <strong>CASE SENSITIVE</strong>
+              </p>
             </div>
-          ) : null}
-          {cardsList.map((each) => (
-            <VirtualCard cardData={each} key={each.id} />
-          ))}
-        </ul>
-      </div>
-    );
-  }
+          </div>
+        ) : null}
+        {post.map((each) => (
+          <VirtualCard cardData={each} key={each.id} />
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default Home;
