@@ -4,7 +4,8 @@
     "nodemon": "^2.0.20"
   },
   "scripts": {
-    "serve": "nodemon index.js"
+    "serve": "nodemon index.js",
+    "start": "node index.js"
   }
 }
 
