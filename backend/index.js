@@ -2,6 +2,8 @@ const express = require("express");
 const data = require("./data");
 const app = express();
 
+const port = process.env.PORT || 8000;
+
 app.use("/", (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   const filters = req.query;
@@ -16,4 +18,6 @@ app.use("/", (req, res) => {
   res.send(filteredCards);
 });
 
-app.listen(4000);
+app.listen(port, () => {
+  console.log(`App listining to port ${port}`);
+});
