@@ -2,7 +2,7 @@ const express = require("express");
 const data = require("./data");
 const app = express();
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 4000;
 
 app.use("/", (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
