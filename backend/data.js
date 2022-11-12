@@ -41,7 +41,7 @@ const data = [
     id: 3,
     name: "Motion",
     budget_name: "Software subscription",
-    owner_id: 3,
+    owner_id: 1,
     spent: {
       value: 100,
       currency: "SGD",
@@ -60,7 +60,7 @@ const data = [
     id: 4,
     name: "Pandadoc",
     budget_name: "Software subscription",
-    owner_id: 3,
+    owner_id: 2,
     spent: {
       value: 100,
       currency: "SGD",

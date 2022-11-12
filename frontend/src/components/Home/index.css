@@ -7,3 +7,15 @@
     list-style-type: none;
     width: 100vw;
 }
+
+.warning{
+    color: red;
+    font-size: 25px;
+    margin-top: 5px;
+}
+
+.warning-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
