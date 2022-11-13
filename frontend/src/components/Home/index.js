@@ -53,23 +53,21 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    console.log(page * rows - rows);
-    console.log(page * rows);
     setPost([...cardsList.slice(0, page * rows)]);
     console.log(post);
   }, [page]);
 
   const getCardsList = async () => {
-    // const { activeCategoryId, searchInput, activeOptionId } = this.state;
     console.log(activeCategoryId);
+    console.log(activeOptionId);
     const apiUrl =
       searchInput.length === 0
         ? activeCategoryId === "0"
           ? activeOptionId === "all"
-            ? `http://localhost:4000/`
-            : `http://localhost:4000?card_type=${activeOptionId}`
-          : `http://localhost:4000?owner_id=${activeCategoryId}`
-        : `http://localhost:4000?name=${searchInput}`;
+            ? `https://volopay-assignment.herokuapp.com//`
+            : `https://volopay-assignment.herokuapp.com/?card_type=${activeOptionId}`
+          : `https://volopay-assignment.herokuapp.com/?owner_id=${activeCategoryId}`
+        : `https://volopay-assignment.herokuapp.com/?name=${searchInput}`;
     const options = {
       method: "GET",
     };
@@ -88,25 +86,12 @@ function Home() {
         limit: each.limit,
         status: each.status,
       }));
-      console.log(updatedData);
       setcardsList(updatedData);
       setPost([...updatedData.slice(0, 10)]);
-      console.log(post);
     } else {
       console.log("error");
     }
   };
-
-  // handlescroll = () => {
-  //   if (
-  //     window.innerHeight + document.documentElement.scrollTop + 1 >=
-  //     document.documentElement.scrollHeight
-  //   ) {
-  //     this.setState((prevState) => ({
-  //       page: prevState + 1,
-  //     }));
-  //   }
-  // };
 
   const enterSearchInput = () => {
     getCardsList();
@@ -114,25 +99,32 @@ function Home() {
 
   const changeSearchInput = (searchInput) => {
     setsearchInput(searchInput);
-    // this.setState({ searchInput });
   };
 
   const changeCategory = (activeCategoryId) => {
     setactiveCategoryId(activeCategoryId);
-    getCardsList();
-    // this.setState({ activeCategoryId }, this.getCardsList);
   };
 
   const changeSortby = (activeOptionId) => {
+    console.log(activeOptionId);
     setactiveOptionId(activeOptionId);
-    getCardsList();
-    // this.setState({ activeOptionId }, this.getCardsList);
   };
+
+  useEffect(() => {
+    getCardsList();
+  }, [activeOptionId]);
+
+  useEffect(() => {
+    getCardsList();
+  }, [activeCategoryId]);
+
+  useEffect(() => {
+    getCardsList();
+  }, [searchInput]);
 
   const clearFilters = () => {
     setsearchInput("");
     setactiveCategoryId("0");
-    getCardsList();
   };
   console.log(post);
 
@@ -151,7 +143,7 @@ function Home() {
         clearFilters={clearFilters}
       />
       <ul className="cards-list">
-        {cardsList.length === 0 ? (
+        {post.length === 0 ? (
           <div>
             <p>No Virtual Cards Found</p>
             <div className="warning-container">
